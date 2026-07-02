@@ -1,0 +1,162 @@
+╔══════════════════════════════════════════════════════════════════════════╗
+║         TASKS — AndyAzhTEC.com · Pendientes para el creador             ║
+║         Beta v0.2.0 → v1.0 · Última actualización: 2026-04-14          ║
+╚══════════════════════════════════════════════════════════════════════════╝
+
+Las tareas están ordenadas por urgencia. Claude puede ayudarte a hacer TODO lo
+de la sección "lo que Claude puede hacer", pero las de esta lista requieren
+acciones tuyas: credenciales, cuentas, instalaciones o datos que solo vos tenés.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  🔴  URGENTE / NECESARIO  (sin esto, features principales no funcionan)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[U-01] INSTALAR LIVE SERVER (para que los embeds de Twitch funcionen local)
+       ► Los embeds de Twitch NO funcionan abriendo el HTML con doble clic
+         (protocolo file://).  Necesitás un servidor local.
+       ► Opción A (VS Code):
+           1. Abrí VS Code → Extensions (Ctrl+Shift+X)
+           2. Buscá "Live Server" de Ritwick Dey → Install
+           3. Click derecho en index.html → "Open with Live Server"
+       ► Opción B (Node.js global):
+           npm install -g live-server
+           En la carpeta del proyecto: live-server
+       ► URL resultante: http://127.0.0.1:5500 — los embeds funcionarán ahí.
+
+[U-02] CONSEGUIR LOS IDs REALES DE TUS VODS EN TWITCH
+       ► Andá a twitch.tv/profe_pikashu/videos
+       ► Abrí cada video que quieras mostrar
+       ► En la URL vas a ver: twitch.tv/videos/XXXXXXXXXX  ← ese número es el ID
+       ► Abrí js/video-config.js y reemplazá los IDs de ejemplo por los reales
+       ► También podés agregar clips: clips.twitch.tv/NombreDelClip
+         El "NombreDelClip" es el slug que ves en la URL del clip.
+
+[U-03] INSTALAR NODE.JS (necesario para React, Vite y todo el stack moderno)
+       ► Descargá desde: https://nodejs.org → versión LTS (la recomendada)
+       ► Verificá la instalación:  node -v  y  npm -v  en la terminal
+       ► Sin Node.js no se puede migrar a React ni usar Supabase, Clerk, Stripe.
+
+[U-04] CREAR CUENTA EN SUPABASE (base de datos del proyecto)
+       ► Registrate en: https://supabase.com  (gratis para proyectos pequeños)
+       ► Creá un nuevo proyecto → guardá el Project URL y la anon key
+       ► Esos datos van en un archivo .env que Claude te va a armar
+       ► Sin Supabase: tienda sin backend, sin historial de compras, sin usuarios reales.
+
+[U-05] CREAR CUENTA EN CLERK (autenticación)
+       ► Registrate en: https://clerk.com  (gratis hasta 10.000 usuarios/mes)
+       ► Creá una aplicación → habilitá login con Google y/o Twitch
+       ► Guardá la Publishable Key → va en el .env
+       ► Sin Clerk: el login/registro de la tienda es solo visual (sin funcionalidad real).
+
+[U-06] CREAR CUENTA EN STRIPE (pagos de la tienda)
+       ► Registrate en: https://stripe.com  (podés testear sin activar cuenta real)
+       ► Modo test: usás tarjetas de prueba, no se cobra nada real
+       ► Guardá la Publishable Key y la Secret Key → van en el .env
+       ► Sin Stripe: el checkout es solo visual, no procesa pagos.
+
+[U-07] REGISTRAR EL DOMINIO / CONFIGURAR DEPLOY
+       ► Recomendado: comprar "andyazhtec.com" en NIC Argentina, Namecheap o similar
+       ► Deploy gratis en: https://vercel.com  (conectás tu GitHub → deploy automático)
+       ► Sin deploy: el sitio solo funciona en tu computadora.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  🟡  MENOS NECESARIAS  (el sitio funciona sin esto, pero queda incompleto)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[M-01] FOTO / AVATAR REAL EN EL HERO
+       ► Reemplazar el ícono robot por tu foto o un avatar personalizado
+       ► Guardá la imagen en /assets/img/avatar.webp  (recomendado: 400x400px)
+       ► Claude puede actualizar el HTML para usar esa imagen.
+
+[M-02] THUMBNAILS REALES DE TUS VIDEOS
+       ► En js/video-config.js, el campo "thumbnail" acepta cualquier URL de imagen
+       ► Las miniaturas de Twitch se consiguen así:
+           - Desde el panel de creador en Twitch → Videos → Botón derecho en la miniatura
+       ► Con thumbnail real las cards de video se ven mucho mejor.
+
+[M-03] ACTUALIZAR ESTADÍSTICAS REALES
+       ► En js/main.js hay contadores con data-target=XXXX (seguidores, viewers, etc.)
+       ► Buscá "data-target" en index.html y cambiá los números por los reales de tu canal.
+
+[M-04] FAVICON PERSONALIZADO
+       ► Necesitás un archivo favicon.ico o favicon.svg en la raíz
+       ► Podés usar https://favicon.io para generarlo desde texto o imagen
+       ► Claude puede agregar el <link rel="icon"> al HTML una vez que tengas el archivo.
+
+[M-05] DATOS REALES DE PRODUCTOS EN LA TIENDA
+       ► Los productos de store.html son ejemplos.
+       ► Agregá los precios reales, descripciones y links a las tiendas donde comprás.
+       ► Eventualmente esto viene de Supabase (ver U-04).
+
+[M-06] LINKS REALES A REDES SOCIALES
+       ► En el footer, los links a Twitch/YouTube/Discord/Twitter/GitHub son "#"
+       ► Reemplazá por tus URLs reales.
+
+[M-07] CONTENIDO DEL TEMARIO DEL CURSO
+       ► El botón "Ver temario completo" en la sección AyRPC no lleva a ningún lado
+       ► Podés crear una página temario.html o Claude puede armarte un modal con el contenido.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  🟢  RECOMENDADAS  (mejoras de calidad, rendimiento y analítica)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[R-01] ANALYTICS (saber cuánta gente visita tu sitio)
+       ► Plausible (privacy-first, sin cookies): https://plausible.io  - recomendado
+       ► Alternativa gratuita: Google Analytics 4
+       ► Claude te integra el script en 2 minutos una vez que tengas la cuenta.
+
+[R-02] ERROR TRACKING CON SENTRY
+       ► Te avisa por email cuando un usuario encuentra un error en la página
+       ► Gratis para proyectos pequeños: https://sentry.io
+       ► Muy útil cuando el sitio esté en producción.
+
+[R-03] EMAILS TRANSACCIONALES CON RESEND
+       ► Para enviar emails de confirmación de compra, registro, etc.
+       ► Gratis hasta 3.000 emails/mes: https://resend.com
+       ► Necesitás Supabase y Stripe primero (U-04 y U-06).
+
+[R-04] CERTIFICADO SSL / HTTPS
+       ► Vercel lo da automático al deployar. Si usás otro hosting, usá Cloudflare.
+       ► Sin HTTPS, los embeds de Twitch y Stripe NO funcionan en producción.
+
+[R-05] INSTALAR GIT Y CONECTAR CON GITHUB
+       ► Para tener historial de cambios y deploy automático desde GitHub a Vercel
+       ► Descargá Git: https://git-scm.com
+       ► Creá un repositorio privado en github.com
+       ► Claude puede guiarte en los comandos para subir el proyecto.
+
+[R-06] CONFIGURAR .ENV (variables de entorno)
+       ► Un archivo .env guarda las claves secretas (Supabase, Clerk, Stripe)
+       ► Claude te lo arma una vez que tengas las cuentas creadas (U-04, U-05, U-06)
+       ► NUNCA subas el .env a GitHub (Claude ya tiene el .gitignore preparado).
+
+[R-07] PWA / MANIFIESTO (para que el sitio se pueda "instalar" como app)
+       ► Agrega un manifest.json y service worker
+       ► Claude puede armarlo, solo necesitás los íconos de la app (512x512px, 192x192px).
+
+[R-08] SEO BÁSICO
+       ► Meta description, og:image, og:title, Twitter Card
+       ► Claude puede agregarlo al HTML. Solo necesitás definir el texto del sitio
+         y tener una imagen de portada (1200x630px) para og:image.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  ℹ️  NOTAS TÉCNICAS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+► El embed de Twitch en la sección de videos usa window.location.hostname
+  automáticamente para el parámetro "parent". No necesitás cambiarlo a mano
+  cuando pases de localhost a producción.
+
+► La tienda (store.html) comparte los mismos css/styles.css + css/store.css
+  No hace falta duplicar los estilos base.
+
+► El carrito de store.html guarda los datos en localStorage (clave: "atec_store_cart")
+  Cuando Supabase esté conectado, esto se reemplazará por la DB.
+
+► Los módulos de la página principal usan ES2022 sin transpilación.
+  Si necesitás soporte para navegadores muy viejos (Edge <79, Safari <14),
+  decíselo a Claude para agregar un polyfill o hacer la migración a Vite antes.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Generado por Claude · AndyAzhTEC.com · Beta v0.2.0
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

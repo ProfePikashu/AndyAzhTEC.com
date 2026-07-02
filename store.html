@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AndyAzhTEC Store — Hardware &amp; Gaming</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/store.css" />
+</head>
+<body class="store-body">
+
+  <!-- ══════════════════════════════════════════
+       STORE TOPBAR
+  ══════════════════════════════════════════ -->
+  <div class="store-topbar">
+    <div class="store-topbar-inner">
+      <span><i class="fa-solid fa-truck-fast"></i> Envío gratis en compras +$150</span>
+      <span><i class="fa-solid fa-shield-halved"></i> Compra segura · Stripe</span>
+      <span><i class="fa-solid fa-rotate-left"></i> Devoluciones en 30 días</span>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       STORE HEADER
+  ══════════════════════════════════════════ -->
+  <header class="store-header" id="storeHeader">
+    <div class="store-header-inner">
+      <!-- Logo -->
+      <a href="index.html" class="store-logo">
+        <span class="neon-text">Andy</span><span class="neon-violet">Azh</span><span class="neon-cyan">TEC</span>
+        <span class="store-logo-sub">Store</span>
+      </a>
+
+      <!-- Search bar -->
+      <div class="store-search">
+        <div class="store-search-box">
+          <input type="text" id="searchInput" placeholder="Buscar GPU, mouse, teclado, auriculares..." autocomplete="off" />
+          <button class="search-btn" onclick="StoreApp.search()">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+        </div>
+        <div class="search-suggestions" id="searchSuggestions"></div>
+      </div>
+
+      <!-- Header actions -->
+      <div class="store-header-actions">
+        <button class="hdr-btn" id="btnAccount" onclick="StoreApp.openAccount()" aria-label="Mi cuenta">
+          <i class="fa-solid fa-user-circle fa-lg"></i>
+          <span id="hdrUserLabel">Ingresar</span>
+        </button>
+        <a href="index.html" class="hdr-btn" aria-label="Volver al sitio principal">
+          <i class="fa-solid fa-house fa-lg"></i>
+          <span>Principal</span>
+        </a>
+        <button class="hdr-btn hdr-btn--cart" id="btnCart" onclick="StoreApp.toggleCart()" aria-label="Carrito">
+          <i class="fa-solid fa-cart-shopping fa-lg"></i>
+          <span>Carrito</span>
+          <span class="hdr-cart-badge" id="hdrCartBadge">0</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Category nav -->
+    <nav class="store-cat-nav">
+      <div class="store-cat-nav-inner">
+        <button class="cat-nav-btn active" data-cat="all" onclick="StoreApp.filterCat(this)">
+          <i class="fa-solid fa-border-all"></i> Todo
+        </button>
+        <button class="cat-nav-btn" data-cat="gpu" onclick="StoreApp.filterCat(this)">
+          <i class="fa-solid fa-microchip"></i> GPU / CPU
+        </button>
+        <button class="cat-nav-btn" data-cat="perifericos" onclick="StoreApp.filterCat(this)">
+          <i class="fa-solid fa-computer-mouse"></i> Periféricos
+        </button>
+        <button class="cat-nav-btn" data-cat="audio" onclick="StoreApp.filterCat(this)">
+          <i class="fa-solid fa-headphones"></i> Audio
+        </button>
+        <button class="cat-nav-btn" data-cat="storage" onclick="StoreApp.filterCat(this)">
+          <i class="fa-solid fa-hard-drive"></i> Storage
+        </button>
+        <button class="cat-nav-btn" data-cat="cooling" onclick="StoreApp.filterCat(this)">
+          <i class="fa-solid fa-fan"></i> Cooling
+        </button>
+        <button class="cat-nav-btn" data-cat="monitor" onclick="StoreApp.filterCat(this)">
+          <i class="fa-solid fa-desktop"></i> Monitores
+        </button>
+        <button class="cat-nav-btn" data-cat="silla" onclick="StoreApp.filterCat(this)">
+          <i class="fa-solid fa-chair"></i> Sillas &amp; Escritorios
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ══════════════════════════════════════════
+       MAIN STORE LAYOUT
+  ══════════════════════════════════════════ -->
+  <main class="store-main">
+
+    <!-- ── HERO BANNER ── -->
+    <div class="store-hero">
+      <div class="store-hero-slide active">
+        <div class="hero-slide-content">
+          <span class="hero-slide-label"><i class="fa-solid fa-bolt"></i> Oferta del día</span>
+          <h2>RTX 4070 Ti SUPER</h2>
+          <p>El mejor rendimiento 4K del mercado. Ahorrá $100 hoy.</p>
+          <div class="hero-slide-price">
+            <span class="hero-old">$999</span>
+            <span class="hero-new">$899</span>
+          </div>
+          <button class="btn btn-primary" onclick="StoreApp.addToCart('RTX 4070 Ti SUPER',899,'gpu')">
+            <i class="fa-solid fa-cart-plus"></i> Agregar al carrito
+          </button>
+        </div>
+        <div class="hero-slide-visual">
+          <i class="fa-solid fa-microchip"></i>
+        </div>
+      </div>
+      <div class="store-hero-dots">
+        <span class="hero-dot active"></span>
+        <span class="hero-dot"></span>
+        <span class="hero-dot"></span>
+      </div>
+    </div>
+
+    <!-- ── CATEGORIES CARDS ── -->
+    <section class="store-section">
+      <div class="store-section-header">
+        <h3><i class="fa-solid fa-table-cells-large"></i> Categorías</h3>
+      </div>
+      <div class="categories-row">
+        <button class="cat-card" onclick="StoreApp.filterCat(null,'gpu')">
+          <i class="fa-solid fa-microchip"></i>
+          <span>GPU / CPU</span>
+        </button>
+        <button class="cat-card" onclick="StoreApp.filterCat(null,'perifericos')">
+          <i class="fa-solid fa-computer-mouse"></i>
+          <span>Periféricos</span>
+        </button>
+        <button class="cat-card" onclick="StoreApp.filterCat(null,'audio')">
+          <i class="fa-solid fa-headphones"></i>
+          <span>Audio</span>
+        </button>
+        <button class="cat-card" onclick="StoreApp.filterCat(null,'storage')">
+          <i class="fa-solid fa-hard-drive"></i>
+          <span>Storage</span>
+        </button>
+        <button class="cat-card" onclick="StoreApp.filterCat(null,'cooling')">
+          <i class="fa-solid fa-fan"></i>
+          <span>Cooling</span>
+        </button>
+        <button class="cat-card" onclick="StoreApp.filterCat(null,'monitor')">
+          <i class="fa-solid fa-desktop"></i>
+          <span>Monitores</span>
+        </button>
+        <button class="cat-card" onclick="StoreApp.filterCat(null,'silla')">
+          <i class="fa-solid fa-chair"></i>
+          <span>Sillas</span>
+        </button>
+        <button class="cat-card" onclick="StoreApp.filterCat(null,'all')">
+          <i class="fa-solid fa-border-all"></i>
+          <span>Ver todo</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ── DEALS DEL DÍA ── -->
+    <section class="store-section deals-section">
+      <div class="store-section-header">
+        <h3><i class="fa-solid fa-fire" style="color:#f97316"></i> Ofertas del día</h3>
+        <span class="deals-timer" id="dealsTimer"><i class="fa-solid fa-clock"></i> 11:42:07</span>
+      </div>
+      <div class="deals-row" id="dealsRow"></div>
+    </section>
+
+    <!-- ── PRODUCTOS GRID ── -->
+    <section class="store-section products-section" id="productsSection">
+      <div class="store-section-header">
+        <h3 id="productsSectionTitle"><i class="fa-solid fa-star"></i> Destacados por AndyAzhTEC</h3>
+        <div class="sort-row">
+          <label>Ordenar:
+            <select id="sortSelect" onchange="StoreApp.sort(this.value)">
+              <option value="default">Relevancia</option>
+              <option value="price-asc">Precio: menor a mayor</option>
+              <option value="price-desc">Precio: mayor a menor</option>
+              <option value="name">Nombre A-Z</option>
+            </select>
+          </label>
+        </div>
+      </div>
+
+      <div class="store-layout">
+        <!-- Sidebar filtros -->
+        <aside class="store-sidebar" id="storeSidebar">
+          <div class="sidebar-section">
+            <h4><i class="fa-solid fa-sliders"></i> Precio</h4>
+            <div class="price-range">
+              <input type="range" id="priceMax" min="0" max="2000" value="2000" step="10"
+                     oninput="StoreApp.filterPrice(this.value)" />
+              <div class="price-range-labels">
+                <span>$0</span>
+                <span id="priceMaxLabel">$2000+</span>
+              </div>
+            </div>
+          </div>
+          <div class="sidebar-section">
+            <h4><i class="fa-solid fa-tag"></i> Condición</h4>
+            <label class="sb-check"><input type="checkbox" checked onchange="StoreApp.applyFilters()"> Nuevo</label>
+            <label class="sb-check"><input type="checkbox" onchange="StoreApp.applyFilters()"> Reacondicionado</label>
+          </div>
+          <div class="sidebar-section">
+            <h4><i class="fa-solid fa-certificate"></i> Marca</h4>
+            <label class="sb-check"><input type="checkbox" checked onchange="StoreApp.applyFilters()"> NVIDIA</label>
+            <label class="sb-check"><input type="checkbox" checked onchange="StoreApp.applyFilters()"> AMD</label>
+            <label class="sb-check"><input type="checkbox" checked onchange="StoreApp.applyFilters()"> Logitech</label>
+            <label class="sb-check"><input type="checkbox" checked onchange="StoreApp.applyFilters()"> SteelSeries</label>
+            <label class="sb-check"><input type="checkbox" checked onchange="StoreApp.applyFilters()"> Samsung</label>
+          </div>
+          <div class="sidebar-section">
+            <h4><i class="fa-solid fa-star"></i> Rating</h4>
+            <label class="sb-check"><input type="radio" name="rating" checked onchange="StoreApp.applyFilters()"> Todos</label>
+            <label class="sb-check"><input type="radio" name="rating" onchange="StoreApp.applyFilters()"> 4+ <i class="fa-solid fa-star" style="color:#facc15;font-size:0.8em"></i></label>
+            <label class="sb-check"><input type="radio" name="rating" onchange="StoreApp.applyFilters()"> 3+ <i class="fa-solid fa-star" style="color:#facc15;font-size:0.8em"></i></label>
+          </div>
+        </aside>
+
+        <!-- Grid de productos -->
+        <div class="products-grid" id="productsGrid"></div>
+      </div>
+    </section>
+
+    <!-- ── BANNER ANDY ── -->
+    <section class="andy-banner">
+      <div class="andy-banner-inner">
+        <div class="andy-banner-text">
+          <h3><i class="fa-solid fa-robot neon-icon"></i> Curado por <span class="neon-cyan">AndyAzhTEC</span></h3>
+          <p>Cada producto en esta tienda fue analizado, probado o recomendado en el canal.
+             No encontrás basura acá.</p>
+        </div>
+        <a href="https://www.twitch.tv/profe_pikashu" target="_blank" rel="noopener" class="btn btn-twitch">
+          <i class="fa-brands fa-twitch"></i> Ver reviews en Twitch
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ══════════════════════════════════════════
+       STORE FOOTER
+  ══════════════════════════════════════════ -->
+  <footer class="store-footer">
+    <div class="store-footer-grid">
+      <div>
+        <div class="store-logo" style="font-size:1.4rem;margin-bottom:0.5rem">
+          <span class="neon-text">Andy</span><span class="neon-violet">Azh</span><span class="neon-cyan">TEC</span>
+          <span class="store-logo-sub">Store</span>
+        </div>
+        <p style="color:var(--text-muted);font-size:0.85rem;margin-bottom:1rem">
+          Hardware &amp; Gaming · Curado por AndyAzhTEC
+        </p>
+        <div class="social-links">
+          <a href="#" aria-label="Twitch"><i class="fa-brands fa-twitch"></i></a>
+          <a href="#" aria-label="Discord"><i class="fa-brands fa-discord"></i></a>
+          <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+        </div>
+      </div>
+      <div>
+        <h4 style="font-family:'Orbitron',monospace;font-size:0.8rem;letter-spacing:2px;color:var(--lilac);margin-bottom:1rem;text-transform:uppercase">Tienda</h4>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:0.5rem">
+          <li><a href="#" style="color:var(--text-muted);text-decoration:none;font-size:0.88rem">Todos los productos</a></li>
+          <li><a href="#" style="color:var(--text-muted);text-decoration:none;font-size:0.88rem">Ofertas del día</a></li>
+          <li><a href="#" style="color:var(--text-muted);text-decoration:none;font-size:0.88rem">Novedades</a></li>
+          <li><a href="#" style="color:var(--text-muted);text-decoration:none;font-size:0.88rem">Más vendidos</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 style="font-family:'Orbitron',monospace;font-size:0.8rem;letter-spacing:2px;color:var(--lilac);margin-bottom:1rem;text-transform:uppercase">Mi cuenta</h4>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:0.5rem">
+          <li><a href="#" onclick="StoreApp.openAccount('login')" style="color:var(--text-muted);text-decoration:none;font-size:0.88rem">Iniciar sesión</a></li>
+          <li><a href="#" onclick="StoreApp.openAccount('register')" style="color:var(--text-muted);text-decoration:none;font-size:0.88rem">Crear cuenta</a></li>
+          <li><a href="#" onclick="StoreApp.openAccount('orders')" style="color:var(--text-muted);text-decoration:none;font-size:0.88rem">Mis compras</a></li>
+          <li><a href="#" onclick="StoreApp.openAccount('wishlist')" style="color:var(--text-muted);text-decoration:none;font-size:0.88rem">Mis sugerencias</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 style="font-family:'Orbitron',monospace;font-size:0.8rem;letter-spacing:2px;color:var(--lilac);margin-bottom:1rem;text-transform:uppercase">Ayuda</h4>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:0.5rem">
+          <li><a href="index.html#faq" style="color:var(--text-muted);text-decoration:none;font-size:0.88rem">FAQ</a></li>
+          <li><a href="#" style="color:var(--text-muted);text-decoration:none;font-size:0.88rem">Políticas de envío</a></li>
+          <li><a href="#" style="color:var(--text-muted);text-decoration:none;font-size:0.88rem">Devoluciones</a></li>
+          <li><a href="#" style="color:var(--text-muted);text-decoration:none;font-size:0.88rem">Contacto</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="store-footer-bottom">
+      <p>© 2026 AndyAzhTEC Store · Pagos seguros con <i class="fa-brands fa-stripe"></i></p>
+      <p class="version-badge">Beta v0.3.0</p>
+    </div>
+  </footer>
+
+  <!-- ══════════════════════════════════════════
+       CART DRAWER
+  ══════════════════════════════════════════ -->
+  <div class="s-cart-overlay" id="sCartOverlay" onclick="StoreApp.toggleCart()"></div>
+  <div class="s-cart-drawer" id="sCartDrawer">
+    <div class="s-cart-header">
+      <h3><i class="fa-solid fa-cart-shopping"></i> Tu carrito</h3>
+      <button onclick="StoreApp.toggleCart()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="s-cart-body" id="sCartBody">
+      <div class="s-cart-empty">
+        <i class="fa-solid fa-box-open fa-3x"></i>
+        <p>Tu carrito está vacío</p>
+        <button class="btn btn-outline" style="margin-top:1rem" onclick="StoreApp.toggleCart()">Seguir comprando</button>
+      </div>
+    </div>
+    <div class="s-cart-footer" id="sCartFooter" style="display:none">
+      <div class="s-cart-summary">
+        <div class="s-cart-row"><span>Subtotal</span><span id="sCartSubtotal">$0</span></div>
+        <div class="s-cart-row"><span>Envío</span><span id="sCartShipping">Gratis</span></div>
+        <div class="s-cart-row s-cart-total"><span>Total</span><span id="sCartTotal">$0</span></div>
+      </div>
+      <button class="btn btn-primary" style="width:100%;margin-top:1rem" onclick="StoreApp.openAccount('checkout')">
+        <i class="fa-solid fa-lock"></i> Finalizar compra
+      </button>
+      <button class="btn btn-outline" style="width:100%;margin-top:0.5rem" onclick="StoreApp.toggleCart()">
+        Seguir comprando
+      </button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       ACCOUNT MODAL (Login / Register / Orders / Wishlist)
+  ══════════════════════════════════════════ -->
+  <div class="account-overlay" id="accountOverlay" onclick="StoreApp.closeAccount()"></div>
+  <div class="account-modal" id="accountModal">
+    <button class="account-close" onclick="StoreApp.closeAccount()"><i class="fa-solid fa-xmark"></i></button>
+
+    <!-- Tabs -->
+    <div class="account-tabs" id="accountTabs">
+      <button class="acc-tab active" data-tab="login" onclick="StoreApp.switchTab('login',this)">
+        <i class="fa-solid fa-right-to-bracket"></i> Ingresar
+      </button>
+      <button class="acc-tab" data-tab="register" onclick="StoreApp.switchTab('register',this)">
+        <i class="fa-solid fa-user-plus"></i> Registrarse
+      </button>
+      <button class="acc-tab" data-tab="orders" onclick="StoreApp.switchTab('orders',this)">
+        <i class="fa-solid fa-box"></i> Mis compras
+      </button>
+      <button class="acc-tab" data-tab="wishlist" onclick="StoreApp.switchTab('wishlist',this)">
+        <i class="fa-solid fa-heart"></i> Sugerencias
+      </button>
+    </div>
+
+    <!-- Tab: Login -->
+    <div class="acc-panel active" id="tab-login">
+      <div class="acc-panel-header">
+        <h3>Bienvenido de vuelta</h3>
+        <p>Ingresá para ver tus pedidos y acceder a precios especiales.</p>
+      </div>
+      <form class="acc-form" onsubmit="StoreApp.handleLogin(event)">
+        <div class="acc-field">
+          <label><i class="fa-solid fa-envelope"></i> Email</label>
+          <input type="email" id="loginEmail" placeholder="tu@email.com" required />
+        </div>
+        <div class="acc-field">
+          <label><i class="fa-solid fa-lock"></i> Contraseña</label>
+          <div class="pass-wrap">
+            <input type="password" id="loginPass" placeholder="••••••••" required />
+            <button type="button" class="pass-toggle" onclick="StoreApp.togglePass('loginPass',this)">
+              <i class="fa-solid fa-eye"></i>
+            </button>
+          </div>
+        </div>
+        <div class="acc-form-footer">
+          <label class="sb-check"><input type="checkbox"> Recordarme</label>
+          <a href="#" style="color:var(--cyan);font-size:0.85rem">¿Olvidaste tu contraseña?</a>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%">
+          <i class="fa-solid fa-right-to-bracket"></i> Ingresar
+        </button>
+        <div class="acc-divider"><span>o continuar con</span></div>
+        <div class="acc-social-login">
+          <button type="button" class="acc-social-btn" onclick="StoreApp.socialLogin('google')">
+            <i class="fa-brands fa-google"></i> Google
+          </button>
+          <button type="button" class="acc-social-btn" onclick="StoreApp.socialLogin('twitch')">
+            <i class="fa-brands fa-twitch"></i> Twitch
+          </button>
+        </div>
+        <p style="text-align:center;margin-top:1rem;font-size:0.85rem;color:var(--text-muted)">
+          ¿No tenés cuenta?
+          <button type="button" onclick="StoreApp.switchTab('register')" style="background:none;border:none;color:var(--cyan);cursor:pointer;font-size:0.85rem;font-weight:700">Registrate</button>
+        </p>
+      </form>
+    </div>
+
+    <!-- Tab: Register -->
+    <div class="acc-panel" id="tab-register">
+      <div class="acc-panel-header">
+        <h3>Crear cuenta</h3>
+        <p>Accedé a descuentos exclusivos, historial de compras y mucho más.</p>
+      </div>
+      <form class="acc-form" onsubmit="StoreApp.handleRegister(event)">
+        <div class="acc-fields-row">
+          <div class="acc-field">
+            <label><i class="fa-solid fa-user"></i> Nombre</label>
+            <input type="text" id="regName" placeholder="Tu nombre" required />
+          </div>
+          <div class="acc-field">
+            <label><i class="fa-solid fa-user"></i> Apellido</label>
+            <input type="text" id="regLastname" placeholder="Tu apellido" />
+          </div>
+        </div>
+        <div class="acc-field">
+          <label><i class="fa-solid fa-envelope"></i> Email</label>
+          <input type="email" id="regEmail" placeholder="tu@email.com" required />
+        </div>
+        <div class="acc-field">
+          <label><i class="fa-solid fa-lock"></i> Contraseña</label>
+          <div class="pass-wrap">
+            <input type="password" id="regPass" placeholder="Mínimo 8 caracteres" minlength="8" required />
+            <button type="button" class="pass-toggle" onclick="StoreApp.togglePass('regPass',this)">
+              <i class="fa-solid fa-eye"></i>
+            </button>
+          </div>
+          <div class="pass-strength" id="passStrength"></div>
+        </div>
+        <div class="acc-field">
+          <label><i class="fa-solid fa-lock"></i> Confirmar contraseña</label>
+          <input type="password" id="regPassConf" placeholder="Repetí tu contraseña" required />
+        </div>
+        <label class="sb-check" style="margin-bottom:1rem">
+          <input type="checkbox" required>
+          Acepto los <a href="#" style="color:var(--cyan)">términos y condiciones</a>
+        </label>
+        <button type="submit" class="btn btn-primary" style="width:100%">
+          <i class="fa-solid fa-user-plus"></i> Crear cuenta
+        </button>
+        <div class="acc-divider"><span>o registrarte con</span></div>
+        <div class="acc-social-login">
+          <button type="button" class="acc-social-btn" onclick="StoreApp.socialLogin('google')">
+            <i class="fa-brands fa-google"></i> Google
+          </button>
+          <button type="button" class="acc-social-btn" onclick="StoreApp.socialLogin('twitch')">
+            <i class="fa-brands fa-twitch"></i> Twitch
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Tab: Orders -->
+    <div class="acc-panel" id="tab-orders">
+      <div class="acc-panel-header">
+        <h3><i class="fa-solid fa-box"></i> Mis compras</h3>
+        <p>Historial de todos tus pedidos.</p>
+      </div>
+      <div class="orders-list" id="ordersList">
+        <div class="orders-guest">
+          <i class="fa-solid fa-right-to-bracket fa-3x" style="color:var(--text-muted);margin-bottom:1rem"></i>
+          <p>Ingresá a tu cuenta para ver tu historial de compras.</p>
+          <button class="btn btn-primary" style="margin-top:1rem" onclick="StoreApp.switchTab('login')">
+            <i class="fa-solid fa-right-to-bracket"></i> Ingresar
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab: Wishlist / Sugerencias -->
+    <div class="acc-panel" id="tab-wishlist">
+      <div class="acc-panel-header">
+        <h3><i class="fa-solid fa-heart"></i> Mis sugerencias</h3>
+        <p>Los productos que guardaste para más tarde o querés recomendar.</p>
+      </div>
+      <div class="wishlist-list" id="wishlistList">
+        <div class="orders-guest">
+          <i class="fa-solid fa-heart-crack fa-3x" style="color:var(--text-muted);margin-bottom:1rem"></i>
+          <p>Guardá productos en tu lista de deseos para no perderlos.</p>
+          <p style="color:var(--text-muted);font-size:0.82rem;margin-top:0.5rem">
+            Hacé click en <i class="fa-solid fa-heart" style="color:var(--violet)"></i> en cualquier producto para agregarlo acá.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab: Checkout (visible solo cuando viene del carrito) -->
+    <div class="acc-panel" id="tab-checkout">
+      <div class="acc-panel-header">
+        <h3><i class="fa-solid fa-lock"></i> Finalizar compra</h3>
+        <p>Revisá tu pedido antes de pagar.</p>
+      </div>
+      <div class="checkout-body" id="checkoutBody">
+        <div class="checkout-notice">
+          <i class="fa-solid fa-circle-info" style="color:var(--cyan)"></i>
+          El checkout con Stripe estará disponible en la v1.0.
+          Por ahora podés revisar tu pedido y guardarlo.
+        </div>
+        <div id="checkoutItems"></div>
+        <div class="checkout-total-row" id="checkoutTotal"></div>
+        <button class="btn btn-primary" style="width:100%;margin-top:1rem" disabled>
+          <i class="fa-brands fa-stripe"></i> Pagar con Stripe (próximamente)
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Product detail modal -->
+  <div class="prod-modal-overlay" id="prodModalOverlay" onclick="StoreApp.closeProduct()"></div>
+  <div class="prod-modal" id="prodModal">
+    <button class="account-close" onclick="StoreApp.closeProduct()"><i class="fa-solid fa-xmark"></i></button>
+    <div class="prod-modal-body" id="prodModalBody"></div>
+  </div>
+
+  <!-- Toast notification -->
+  <div class="store-toast" id="storeToast"></div>
+
+  <script src="js/store.js"></script>
+</body>
+</html>
