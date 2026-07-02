@@ -433,8 +433,19 @@ const VideoShowcase = (function () {
     }
 
     const fragment = document.createDocumentFragment();
-    AAT_TOOLS.forEach((tool, index) => fragment.appendChild(renderToolCard(tool, index)));
+    const cards = [];
+
+    AAT_TOOLS.forEach((tool, index) => {
+      const card = renderToolCard(tool, index);
+      cards.push(card);
+      fragment.appendChild(card);
+    });
+
     grid.appendChild(fragment);
+
+    cards.forEach((card, index) => {
+      setTimeout(() => card.classList.add("visible"), index * 90);
+    });
   }
 
   if (document.readyState === "loading") {
