@@ -5,6 +5,66 @@
 
 "use strict";
 
+// ── THEME TOGGLE ──────────────────────────────────────
+(function initThemeToggle() {
+  const STORAGE_KEY = "aat_theme";
+  const root = document.documentElement;
+
+  function getPreferredTheme() {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved === "light" || saved === "dark") return saved;
+
+    return window.matchMedia("(prefers-color-scheme: light)").matches
+      ? "light"
+      : "dark";
+  }
+
+  function applyTheme(theme) {
+    root.setAttribute("data-theme", theme);
+
+    const btn = document.getElementById("themeToggle");
+    if (!btn) return;
+
+    const icon = btn.querySelector("i");
+    if (icon) {
+      icon.className = theme === "light"
+        ? "fa-solid fa-sun"
+        : "fa-solid fa-moon";
+    }
+
+    btn.setAttribute(
+      "aria-label",
+      theme === "light" ? "Cambiar a modo oscuro" : "Cambiar a modo claro"
+    );
+  }
+
+  function init() {
+    applyTheme(getPreferredTheme());
+
+    const btn = document.getElementById("themeToggle");
+    if (!btn) return;
+
+    btn.addEventListener("click", () => {
+      const current = root.getAttribute("data-theme") === "light" ? "light" : "dark";
+      const next = current === "light" ? "dark" : "light";
+
+      localStorage.setItem(STORAGE_KEY, next);
+      applyTheme(next);
+
+      if (window.AAT_ANALYTICS && typeof window.AAT_ANALYTICS.track === "function") {
+        window.AAT_ANALYTICS.track("click", "theme_toggle", { theme: next });
+      }
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+})();
+
+
 // ── PARTICLES ─────────────────────────────────────────
 (function initParticles() {
   const container = document.getElementById('particles-bg');

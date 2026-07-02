@@ -2006,3 +2006,131 @@ body {
   pointer-events: none;
   opacity: 0.72;
 }
+/* ── THEME SYSTEM — LIGHT / PASTEL MODE ───────────────── */
+html[data-theme="light"] {
+  --cyan:        #38bdf8;
+  --cyan-dim:    #7dd3fc;
+  --violet:      #8b5cf6;
+  --violet-dim:  #a78bfa;
+  --lilac:       #c4b5fd;
+  --lilac-dim:   #ddd6fe;
+  --pink:        #f0abfc;
+  --bg-deep:     #f8fbff;
+  --bg-card:     rgba(255, 255, 255, 0.82);
+  --bg-card2:    rgba(245, 243, 255, 0.9);
+  --border-glow: rgba(139, 92, 246, 0.24);
+  --text-main:   #172033;
+  --text-muted:  #64748b;
+}
+
+html[data-theme="light"] body {
+  background:
+    radial-gradient(circle at top left, rgba(196, 181, 253, 0.35), transparent 34%),
+    radial-gradient(circle at top right, rgba(125, 211, 252, 0.28), transparent 32%),
+    linear-gradient(180deg, #f8fbff 0%, #f4f0ff 100%);
+}
+
+html[data-theme="light"] .navbar {
+  background: rgba(255, 255, 255, 0.74);
+  border-bottom-color: rgba(139, 92, 246, 0.22);
+  box-shadow: 0 8px 32px rgba(148, 163, 184, 0.16);
+}
+
+html[data-theme="light"] .navbar.scrolled {
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 8px 34px rgba(139, 92, 246, 0.16);
+}
+
+html[data-theme="light"] .card,
+html[data-theme="light"] .faq-item,
+html[data-theme="light"] .store-ad-card {
+  background: rgba(255, 255, 255, 0.74);
+  border-color: rgba(139, 92, 246, 0.2);
+  box-shadow: 0 16px 42px rgba(148, 163, 184, 0.18);
+}
+
+html[data-theme="light"] .star {
+  background: #8b5cf6;
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  margin-left: 0.75rem;
+  border-radius: 999px;
+  border: 1px solid var(--border-glow);
+  background: rgba(168, 85, 247, 0.12);
+  color: var(--cyan);
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: 0 0 16px rgba(168, 85, 247, 0.18);
+}
+
+.theme-toggle:hover {
+  transform: translateY(-2px) rotate(8deg);
+  box-shadow: 0 0 24px rgba(0, 245, 255, 0.28);
+}
+
+html[data-theme="light"] .theme-toggle {
+  background: rgba(255, 255, 255, 0.76);
+  color: var(--violet);
+  box-shadow: 0 10px 24px rgba(139, 92, 246, 0.16);
+}
+/* ── LIGHT MODE POLISH — reduce neon burn ───────────── */
+html[data-theme="light"] .neon-text,
+html[data-theme="light"] .neon-violet,
+html[data-theme="light"] .neon-cyan {
+  text-shadow: none;
+}
+
+html[data-theme="light"] .glitch-text {
+  color: #7c3aed;
+  text-shadow: 0 6px 22px rgba(124, 58, 237, 0.18);
+}
+
+html[data-theme="light"] .glitch-text::before,
+html[data-theme="light"] .glitch-text::after {
+  opacity: 0.16;
+  text-shadow: none;
+}
+
+html[data-theme="light"] .section-title .neon-cyan,
+html[data-theme="light"] .section-title .neon-violet,
+html[data-theme="light"] .section-title .neon-text {
+  color: #7c3aed;
+  text-shadow: 0 6px 20px rgba(124, 58, 237, 0.16);
+}
+
+html[data-theme="light"] .badge-pill,
+html[data-theme="light"] .section-label,
+html[data-theme="light"] .tag,
+html[data-theme="light"] .chip {
+  background: rgba(255, 255, 255, 0.72);
+  color: #7c3aed;
+  border-color: rgba(124, 58, 237, 0.22);
+  text-shadow: none;
+  box-shadow: 0 8px 24px rgba(124, 58, 237, 0.12);
+}
+
+html[data-theme="light"] .hero-sub,
+html[data-theme="light"] .section-desc,
+html[data-theme="light"] .ayrpc-description {
+  color: #475569;
+}
+
+html[data-theme="light"] .avatar-ring {
+  box-shadow: 0 18px 55px rgba(56, 189, 248, 0.22);
+}
+
+html[data-theme="light"] .neon-icon {
+  color: #38bdf8;
+  filter: drop-shadow(0 8px 18px rgba(56, 189, 248, 0.22));
+}
+
+html[data-theme="light"] .ayrpc-subtitle {
+  color: #64748b;
+  text-shadow: none;
+}
