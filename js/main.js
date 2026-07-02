@@ -382,3 +382,64 @@ const VideoShowcase = (function () {
 
   return { open, close };
 })();
+
+/* ── ANDYAZHTEC TOOLS GRID ───────────────────────────── */
+(function initToolsGrid() {
+  function esc(s) {
+    if (typeof s !== "string") return "";
+    return s
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
+  function renderToolCard(tool, index) {
+    const card = document.createElement("div");
+    card.className = "card card-glow tool-card";
+    card.dataset.delay = String(index * 90);
+
+    const isSoon = tool.statusType === "soon";
+    const href = isSoon ? "#" : tool.url;
+
+    card.innerHTML = `
+      <div class="card-icon"><i class="${esc(tool.icon)}"></i></div>
+      <div class="tool-status tool-status--${esc(tool.statusType)}">${esc(tool.status)}</div>
+      <h3>${esc(tool.title)}</h3>
+      <p>${esc(tool.description)}</p>
+      <a href="${esc(href)}"
+         class="tool-link ${isSoon ? "tool-link--disabled" : ""}"
+         ${isSoon ? 'aria-disabled="true"' : 'target="_blank" rel="noopener"'}
+         data-track="tool_${esc(tool.title.toLowerCase().replace(/\s+/g, "_"))}">
+        ${esc(tool.cta)} <i class="fa-solid fa-arrow-up-right-from-square"></i>
+      </a>
+    `;
+
+    return card;
+  }
+
+  function init() {
+    const grid = document.getElementById("toolsGrid");
+    if (!grid) return;
+
+    if (typeof AAT_TOOLS === "undefined" || !Array.isArray(AAT_TOOLS) || !AAT_TOOLS.length) {
+      grid.innerHTML = `
+        <div style="color:var(--text-muted);font-size:0.9rem;grid-column:1/-1;text-align:center;padding:3rem">
+          <i class="fa-solid fa-screwdriver-wrench fa-2x" style="margin-bottom:0.75rem;display:block"></i>
+          Aún no hay herramientas configuradas.
+        </div>
+      `;
+      return;
+    }
+
+    const fragment = document.createDocumentFragment();
+    AAT_TOOLS.forEach((tool, index) => fragment.appendChild(renderToolCard(tool, index)));
+    grid.appendChild(fragment);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+})();
